@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: 'datatable-component',
+  name: 'ui-formparts-select2',
 
   props: {
     Options: Array,

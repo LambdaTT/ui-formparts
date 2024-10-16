@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-sm">
     <!-- Input text: -->
-    <q-input v-if="type == 'text' || type == null" class="full-width" square filled :dense="dense"
+    <q-input ref="InputFieldRef" v-if="type == 'text' || type == null" class="full-width" square filled :dense="dense"
       :clearable="clearable" :readonly="readonly" v-model="value" :error="Error" @focus="() => $emit('focus')"
       type="text" :maxlength="maxlength" :label="Label" :mask="Mask" @update:model-value="updModelValue">
       <template v-slot:append>
@@ -10,36 +10,36 @@
     </q-input>
 
     <!-- Input password: -->
-    <q-input v-if="type == 'password'" class="full-width" square filled :dense="dense" :clearable="clearable"
-      :readonly="readonly" v-model="value" :error="Error" @focus="() => $emit('focus')" type="password"
-      :maxlength="maxlength" :label="Label" @update:model-value="updModelValue">
+    <q-input ref="InputFieldRef" v-if="type == 'password'" class="full-width" square filled :dense="dense"
+      :clearable="clearable" :readonly="readonly" v-model="value" :error="Error" @focus="() => $emit('focus')"
+      type="password" :maxlength="maxlength" :label="Label" @update:model-value="updModelValue">
       <template v-slot:append>
         <q-icon v-if="!!Icon" :name="Icon" color="grey-8" />
       </template>
     </q-input>
 
     <!-- Input textarea: -->
-    <q-input v-if="type == 'textarea'" class="full-width" square filled :dense="dense" :clearable="clearable"
-      :readonly="readonly" v-model="value" :error="Error" @focus="() => $emit('focus')" type="textarea"
-      :maxlength="maxlength" :label="Label" @update:model-value="updModelValue">
+    <q-input ref="InputFieldRef" v-if="type == 'textarea'" class="full-width" square filled :dense="dense"
+      :clearable="clearable" :readonly="readonly" v-model="value" :error="Error" @focus="() => $emit('focus')"
+      type="textarea" :maxlength="maxlength" :label="Label" @update:model-value="updModelValue">
       <template v-slot:append>
         <q-icon v-if="!!Icon" :name="Icon" color="grey-8" />
       </template>
     </q-input>
 
     <!-- Input email: -->
-    <q-input v-if="type == 'email'" class="full-width" square filled :dense="dense" :clearable="clearable"
-      :readonly="readonly" v-model="value" :error="Error" @focus="() => $emit('focus')" type="email" maxlength="255"
-      :label="Label" @update:model-value="updModelValue">
+    <q-input ref="InputFieldRef" v-if="type == 'email'" class="full-width" square filled :dense="dense"
+      :clearable="clearable" :readonly="readonly" v-model="value" :error="Error" @focus="() => $emit('focus')"
+      type="email" maxlength="255" :label="Label" @update:model-value="updModelValue">
       <template v-slot:append>
         <q-icon v-if="!!Icon" :name="Icon" color="grey-8" />
       </template>
     </q-input>
 
     <!-- Input number: -->
-    <q-input v-if="type == 'number'" class="full-width" square filled :dense="dense" :clearable="clearable"
-      :readonly="readonly" v-model="value" :error="Error" @focus="() => $emit('focus')" type="number" :step="step"
-      :max="max" :min="min" :label="Label" @update:model-value="updModelValue">
+    <q-input ref="InputFieldRef" v-if="type == 'number'" class="full-width" square filled :dense="dense"
+      :clearable="clearable" :readonly="readonly" v-model="value" :error="Error" @focus="() => $emit('focus')"
+      type="number" :step="step" :max="max" :min="min" :label="Label" @update:model-value="updModelValue">
       <template v-slot:append>
         <q-icon v-if="!!Icon" :name="Icon" color="grey-8" />
       </template>
@@ -95,9 +95,6 @@
 export default {
   name: 'components-common-inputfield',
 
-  components: {
-  },
-
   props: {
     type: String,
     readonly: Boolean,
@@ -137,6 +134,10 @@ export default {
 
   created() {
     this.value = this.modelValue;
+  },
+
+  mounted() {
+    this.$emit('expose-ref', this.$refs.InputFieldRef);
   }
 }
 </script>
