@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-input square filled clearable v-model="fileData.name" @click="inputClicked()" type="text"
+    <q-input hide-bottom-space square filled clearable v-model="fileData.name" @click="inputClicked()" type="text"
       label="Selecione o arquivo" @clear="clearFile" color="primary">
       <template v-slot:prepend>
         <q-icon name="cloud_upload" />

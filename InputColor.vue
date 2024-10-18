@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-input class="full-width" square filled :dense="dense" readonly v-model="value" :error="Error"
+    <q-input hide-bottom-space :class="`full-width bg-${BgColor ? BgColor : 'white'}`" square filled :dense="dense" readonly v-model="value" :error="Error"
       @focus="() => $emit('focus')" :label="Label" @update:model-value="updModelValue">
       <template v-slot:append>
         <span v-if="!!value" :style="`background-color:${value};`" id="color-preview"></span>
@@ -26,6 +26,7 @@ export default {
   name: 'components-common-inputcolor',
 
   props: {
+    BgColor: String,
     readonly: Boolean,
     dense: Boolean,
     modelValue: String,
