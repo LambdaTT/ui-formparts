@@ -105,9 +105,6 @@
 export default {
   name: 'components-common-inputfield',
 
-  components: {
-  },
-
   props: {
     BgColor: String,
     type: String,
@@ -148,6 +145,10 @@ export default {
 
   created() {
     this.value = this.modelValue;
+  },
+
+  mounted() {
+    this.$emit('expose-ref', this.$refs.InputFieldRef);
   }
 }
 </script>
