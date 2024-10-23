@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-input square filled clearable v-model="fileData.name" @click="inputClicked()" type="text"
+    <q-input square filled :clearable="clearable" v-model="fileData.name" @click="inputClicked()" type="text"
       label="Selecione o arquivo" @clear="clearFile" color="primary">
       <template v-slot:prepend>
         <q-icon name="cloud_upload" />
@@ -9,7 +9,7 @@
     <p v-show="this.fileData.size != null" class="text-caption text-right">{{ (this.fileData.size / 1024).toFixed(2) }}
       kb
     </p>
-    <input id="input-file" type="file" v-on:change="fileChange" style="display:none;">
+    <input id="input-file" type="file" v-on:change="fileChange" :accept="!!accept ? accept : '*/*'" style="display:none;">
   </div>
 </template>
 <script>
@@ -17,6 +17,11 @@ import Utils from '../../../services/utils';
 
 export default {
   name: 'component-fileupload',
+
+  props:{
+    clearable: Boolean,
+    accept: String
+  },
 
   data() {
     return {

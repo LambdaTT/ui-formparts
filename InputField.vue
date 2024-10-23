@@ -74,8 +74,10 @@
       :Default="Default" @update:model-value="updModelValue"></InputTime>
 
     <!-- Input file: -->
-    <q-file v-if="type == 'file'" :clearable="clearable" :accept="accept" filled square bottom-slots v-model="value"
-      :label="Label" counter @update:model-value="updModelValue">
+    <FileUpload v-if="type == 'file'" @file-change="FileChangeFn" :clearable="clearable"
+      :accept="accept"></FileUpload>
+    <q-file v-if="type == 'file'" @file-change="FileChangeFn" :clearable="clearable" :accept="accept" filled square
+      bottom-slots v-model="value" :label="Label" counter @update:model-value="updModelValue">
       <template v-slot:prepend>
         <q-icon name="cloud_upload" />
       </template>
@@ -112,6 +114,7 @@ export default {
     min: String,
     Default: [String, Object],
     accept: String,
+    FileChangeFn: Function
   },
 
   data() {
