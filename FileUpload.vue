@@ -6,7 +6,7 @@
         <q-icon name="cloud_upload" />
       </template>
     </q-input>
-    <p v-show="this.fileData.size != null" class="text-caption text-right">{{ (this.fileData.size / 1024).toFixed(2) }}
+    <p vz-show="this.fileData.size != null" class="text-caption text-right">{{ (this.fileData.size / 1024).toFixed(2) }}
       kb
     </p>
     <input id="input-file" type="file" v-on:change="fileChange" :accept="!!accept ? accept : '*/*'" style="display:none;">
@@ -36,7 +36,6 @@ export default {
 
   methods: {
     inputClicked() {
-      this.$emit('rm-visibility-event');
       document.getElementById('input-file').click();
       document.activeElement.blur();
     },
@@ -68,7 +67,6 @@ export default {
       } else {
         this.clearFileData();
       }
-      this.$emit('add-visibility-event');
     }
   },
 
