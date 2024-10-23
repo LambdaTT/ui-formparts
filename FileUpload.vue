@@ -36,6 +36,7 @@ export default {
 
   methods: {
     inputClicked() {
+      this.$emit('rm-visibility-event');
       document.getElementById('input-file').click();
       document.activeElement.blur();
     },
@@ -67,6 +68,7 @@ export default {
       } else {
         this.clearFileData();
       }
+      this.$emit('add-visibility-event');
     }
   },
 
