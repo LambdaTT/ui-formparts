@@ -1,5 +1,5 @@
 <template>
-  <q-select option-disable="inactive" :disable="disable" :hide-dropdown-icon="readonly" :dense="dense" filled square
+  <q-select hide-bottom-space :bg-color="`bg-${BgColor ? BgColor : 'white'}`" option-disable="inactive" :disable="disable" :hide-dropdown-icon="readonly" :dense="dense" filled square
     :clearable="clearable" v-model="selected" use-input hide-selected fill-input input-debounce="300" :options="options"
     @filter="filterFn" :label="Label" :error="Error" @focus="$emit('focus')" :readonly="readonly">
     <template v-if="!!Icon" v-slot:append>
@@ -20,6 +20,7 @@ export default {
   name: 'ui-formparts-select2',
 
   props: {
+    BgCOlor: String,
     Options: Array,
     Label: String,
     Icon: String,
