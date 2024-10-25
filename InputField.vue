@@ -88,24 +88,18 @@
       :Label="Label" :clearable="clearable" :Error="Error" :Default=Default></InputColor>
 
     <!-- Input file: -->
-    <FileUpload v-if="type == 'file'" @file-change="FileChangeFn" :clearable="clearable"
-      :accept="accept"></FileUpload>
-    <q-file v-if="type == 'file'" @file-change="FileChangeFn" :clearable="clearable" :accept="accept" filled square
-      bottom-slots v-model="value" :label="Label" counter @update:model-value="updModelValue">
-      <template v-slot:prepend>
-        <q-icon name="cloud_upload" />
-      </template>
-      <template v-slot:append>
-        <q-icon v-if="!!Icon" :name="Icon" />
-      </template>
-    </q-file>
+    <FileUpload v-if="type == 'file'" :clearable="clearable" :accept="accept" @update:model-value="updModelValue"
+      v-model="value" @fileupload-before-choose="broadcast('fileupload-before-choose')" :Icon="Icon" :Label="Label"
+      @fileupload-chosen="broadcast('fileupload-chosen')" :Error="Error" @focus="() => $emit('focus')">
+    </FileUpload>
+
   </div>
 
 </template>
 
 <script>
 export default {
-  name: 'components-common-inputfield',
+  name: 'ui-formparts-inputfield',
 
   props: {
     BgColor: String,
@@ -125,7 +119,6 @@ export default {
     min: String,
     Default: [String, Object],
     accept: String,
-    FileChangeFn: Function
   },
 
   data() {
@@ -143,6 +136,10 @@ export default {
   methods: {
     updModelValue(v) {
       this.$emit('update:model-value', v);
+    },
+
+    broadcast(eventName, data) {
+      this.$emit(eventName, data);
     }
   },
 
