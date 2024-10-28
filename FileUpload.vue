@@ -59,8 +59,15 @@ export default {
   },
 
   methods: {
-    inputClicked() {
+    sleep(miliseconds) {
+      return new Promise((resolve) => {
+        setTimeout(() => resolve(miliseconds), miliseconds);
+      })
+    },
+
+    async inputClicked() {
       this.$emit('fileupload-before-choose');
+      await this.sleep(100);
       this.dialogIsOpen = true;
       window.addEventListener('focus', this.onWindowFocus);
       document.getElementById('input-file').click();
