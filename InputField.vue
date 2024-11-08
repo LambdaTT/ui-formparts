@@ -90,7 +90,7 @@
     <!-- Input file: -->
     <FileUpload v-if="type == 'file'" :clearable="clearable" :accept="accept" @update:model-value="updModelValue"
       v-model="value" @fileupload-before-choose="broadcast('fileupload-before-choose')" :Icon="Icon" :Label="Label"
-      @fileupload-chosen="broadcast('fileupload-chosen')" :Error="Error" @focus="() => $emit('focus')">
+      @fileupload-chosen="broadcast('fileupload-chosen')" :Error="Error" @focus="() => $emit('focus')" :ReadAsURL="ReadAsURL">
     </FileUpload>
 
   </div>
@@ -119,6 +119,7 @@ export default {
     min: String,
     Default: [String, Object],
     accept: String,
+    ReadAsURL: Boolean,
   },
 
   data() {

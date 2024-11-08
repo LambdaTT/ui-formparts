@@ -28,6 +28,7 @@ export default {
     Label: String,
     Color: String,
     Error: Boolean,
+    ReadAsURL: Boolean
   },
 
   data() {
@@ -99,7 +100,8 @@ export default {
           })
         };
 
-        reader.readAsText(file);
+        if (this.ReadAsURL) reader.readAsDataURL(file);
+        else reader.readAsText(file);
       })
     },
 
