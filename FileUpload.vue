@@ -28,7 +28,7 @@ export default {
     Label: String,
     Color: String,
     Error: Boolean,
-    ReadAsURL: Boolean
+    ReadAsURL: Boolean,
   },
 
   data() {
@@ -36,7 +36,7 @@ export default {
       fileData: {
         file: null,
         name: null,
-        data: null,
+        src: null,
         size: null
       },
       dialogIsOpen: false
@@ -85,7 +85,7 @@ export default {
       this.fileData = {
         file: null,
         name: null,
-        data: null,
+        src: null,
         size: null
       }
     },
@@ -115,7 +115,7 @@ export default {
           file: filedata.file,
           name: filedata.file.name,
           size: filedata.file.size,
-          data: filedata.src,
+          src: filedata.src,
         };
       } else {
         this.clearFileData();
@@ -132,6 +132,10 @@ export default {
           this.fileChange({ target: { files: [] } })
       }, 100)
     }
+  },
+
+  mounted() {
+    this.$emit('activateFn', this.inputClicked);
   }
 }
 </script>

@@ -20,7 +20,7 @@ export default {
   name: 'ui-formparts-select2',
 
   props: {
-    BgCOlor: String,
+    BgColor: String,
     Options: Array,
     Label: String,
     Icon: String,
