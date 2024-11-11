@@ -1,5 +1,5 @@
 <template>
-  <q-input clearable :label="Label" :dense="dense" readonly filled v-model="value" :error="Error">
+  <q-input hide-bottom-space clearable :class="`full-width bg-${BgColor ? BgColor : 'white'}`" :label="Label" :dense="dense" readonly filled v-model="value" :error="Error">
     <template v-slot:append>
       <q-icon id="clear-button" v-if="!!value && !readonly" name="cancel" clickable @click="clear()"
         class="cursor-pointer">
@@ -25,6 +25,7 @@ export default {
   name: 'component-inputtime',
 
   props: {
+    BgColor: String,
     dense: Boolean,
     Label: String,
     Error: Boolean,

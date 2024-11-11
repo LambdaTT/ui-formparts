@@ -1,22 +1,35 @@
 <template>
   <div>
-    <q-input square filled clearable v-model="fileData.name" @click="inputClicked()" type="text"
-      label="Selecione o arquivo" @clear="clearFile" color="primary">
+    <q-input hide-bottom-space square filled :clearable="clearable" v-model="fileData.name" @click="inputClicked()"
+      type="text" :label="!!Label ? Label : 'Selecione o arquivo'" @clear="clearFile"
+      :color="!!Color ? Color : 'primary'" @focus="$emit('focus')" :error="Error">
       <template v-slot:prepend>
         <q-icon name="cloud_upload" />
+      </template>
+      <template v-slot:append>
+        <q-icon v-if="!!Icon" :name="Icon" />
       </template>
     </q-input>
     <p v-show="this.fileData.size != null" class="text-caption text-right">{{ (this.fileData.size / 1024).toFixed(2) }}
       kb
     </p>
-    <input id="input-file" type="file" v-on:change="fileChange" style="display:none;">
+    <input id="input-file" :accept="accept" type="file" v-on:change="fileChange" style="display:none;">
   </div>
 </template>
 <script>
-import Utils from '../../../services/utils';
-
 export default {
-  name: 'component-fileupload',
+  name: 'ui-formparts-fileupload',
+
+  props: {
+    clearable: Boolean,
+    accept: String,
+    modelValue: Object,
+    Icon: String,
+    Label: String,
+    Color: String,
+    Error: Boolean,
+    ReadAsURL: Boolean
+  },
 
   data() {
     return {
@@ -25,12 +38,39 @@ export default {
         name: null,
         data: null,
         size: null
-      }
+      },
+      dialogIsOpen: false
+    }
+  },
+
+  watch: {
+    modelValue: {
+      handler(v) {
+        this.fileData = v;
+      },
+      deep: true
+    },
+
+    fileData: {
+      handler(v) {
+        this.$emit('update:model-value', v)
+      },
+      deep: true
     }
   },
 
   methods: {
-    inputClicked() {
+    sleep(miliseconds) {
+      return new Promise((resolve) => {
+        setTimeout(() => resolve(miliseconds), miliseconds);
+      })
+    },
+
+    async inputClicked() {
+      this.$emit('fileupload-before-choose');
+      await this.sleep(100);
+      this.dialogIsOpen = true;
+      window.addEventListener('focus', this.onWindowFocus);
       document.getElementById('input-file').click();
       document.activeElement.blur();
     },
@@ -42,31 +82,56 @@ export default {
     },
 
     clearFileData() {
-      for (let k in this.fileData)
-        this.fileData[k] = null;
-
-      this.$emit('file-change', this.fileData);
+      this.fileData = {
+        file: null,
+        name: null,
+        data: null,
+        size: null
+      }
     },
 
-    fileChange(evt) {
-      var input = evt.target;
-      if (input.files.length > 0) {
-        Utils.readFile(input.files[0], (filedata) => {
-          this.fileData.file = filedata.file;
-          this.fileData.name = filedata.file.name;
-          this.fileData.size = filedata.file.size;
-          this.fileData.data = filedata.src;
+    readFile(file) {
+      return new Promise((resolve, reject) => {
+        var reader = new FileReader();
+        reader.onload = function (evt) {
+          resolve({
+            "src": evt.target.result,
+            "file": file
+          })
+        };
 
-          this.$emit('file-change', this.fileData);
-        }, true);
+        if (this.ReadAsURL) reader.readAsDataURL(file);
+        else reader.readAsText(file);
+      })
+    },
+
+    async fileChange(evt) {
+      this.dialogIsOpen = false;
+      var input = evt.target;
+
+      if (input.files.length > 0) {
+        let filedata = await this.readFile(input.files[0]);
+        this.fileData = {
+          file: filedata.file,
+          name: filedata.file.name,
+          size: filedata.file.size,
+          data: filedata.src,
+        };
       } else {
         this.clearFileData();
       }
-    }
-  },
 
-  created() {
-    this.$emit('set-clear-input', this.clearFile);
+      this.$emit('fileupload-chosen')
+    },
+
+    onWindowFocus() {
+      window.removeEventListener('focus', this.onWindowFocus);
+
+      setTimeout(() => {
+        if (this.dialogIsOpen)
+          this.fileChange({ target: { files: [] } })
+      }, 100)
+    }
   }
 }
 </script>
