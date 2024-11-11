@@ -1,52 +1,57 @@
 <template>
-  <div class="q-pa-sm">
+  <div :class="dense ? 'q-pa-xs' : 'q-pa-sm'">
     <!-- Input text: -->
     <q-input ref="InputFieldRef" v-if="type == 'text' || type == null" class="full-width" square filled :dense="dense"
-      :clearable="clearable" :readonly="readonly" v-model="value" :error="Error" @focus="() => $emit('focus')"
+      :clearable="clearable" :readonly="readonly" :disable="disable" v-model="value" :error="Error" @focus="() => $emit('focus')"
       type="text" :maxlength="maxlength" :label="Label" :mask="Mask" @update:model-value="updModelValue">
       <template v-slot:append>
+        <slot name="buttons"></slot>
         <q-icon v-if="!!Icon" :name="Icon" color="grey-8" />
       </template>
     </q-input>
 
     <!-- Input password: -->
     <q-input ref="InputFieldRef" v-if="type == 'password'" class="full-width" square filled :dense="dense"
-      :clearable="clearable" :readonly="readonly" v-model="value" :error="Error" @focus="() => $emit('focus')"
+      :clearable="clearable" :readonly="readonly" :disable="disable" v-model="value" :error="Error" @focus="() => $emit('focus')"
       type="password" :maxlength="maxlength" :label="Label" @update:model-value="updModelValue">
       <template v-slot:append>
+        <slot name="buttons"></slot>
         <q-icon v-if="!!Icon" :name="Icon" color="grey-8" />
       </template>
     </q-input>
 
     <!-- Input textarea: -->
     <q-input ref="InputFieldRef" v-if="type == 'textarea'" class="full-width" square filled :dense="dense"
-      :clearable="clearable" :readonly="readonly" v-model="value" :error="Error" @focus="() => $emit('focus')"
+      :clearable="clearable" :readonly="readonly" :disable="disable" v-model="value" :error="Error" @focus="() => $emit('focus')"
       type="textarea" :maxlength="maxlength" :label="Label" @update:model-value="updModelValue">
       <template v-slot:append>
+        <slot name="buttons"></slot>
         <q-icon v-if="!!Icon" :name="Icon" color="grey-8" />
       </template>
     </q-input>
 
     <!-- Input email: -->
     <q-input ref="InputFieldRef" v-if="type == 'email'" class="full-width" square filled :dense="dense"
-      :clearable="clearable" :readonly="readonly" v-model="value" :error="Error" @focus="() => $emit('focus')"
+      :clearable="clearable" :readonly="readonly" :disable="disable" v-model="value" :error="Error" @focus="() => $emit('focus')"
       type="email" maxlength="255" :label="Label" @update:model-value="updModelValue">
       <template v-slot:append>
+        <slot name="buttons"></slot>
         <q-icon v-if="!!Icon" :name="Icon" color="grey-8" />
       </template>
     </q-input>
 
     <!-- Input number: -->
     <q-input ref="InputFieldRef" v-if="type == 'number'" class="full-width" square filled :dense="dense"
-      :clearable="clearable" :readonly="readonly" v-model="value" :error="Error" @focus="() => $emit('focus')"
+      :clearable="clearable" :readonly="readonly" :disable="disable" v-model="value" :error="Error" @focus="() => $emit('focus')"
       type="number" :step="step" :max="max" :min="min" :label="Label" @update:model-value="updModelValue">
       <template v-slot:append>
+        <slot name="buttons"></slot>
         <q-icon v-if="!!Icon" :name="Icon" color="grey-8" />
       </template>
     </q-input>
 
     <!-- Input select: -->
-    <Select2 v-if="type == 'select'" :dense="dense" :clearable="clearable" :readonly="readonly" :Options="Options"
+    <Select2 v-if="type == 'select'" :dense="dense" :clearable="clearable" :readonly="readonly" :disable="disable" :Options="Options"
       :Label="Label" :Icon="Icon" :Error="Error" @focus="() => $emit('focus')" v-model="value"
       @update:model-value="updModelValue">
     </Select2>
@@ -98,6 +103,7 @@ export default {
   props: {
     type: String,
     readonly: Boolean,
+    disable: Boolean,
     dense: Boolean,
     modelValue: [String, Object],
     Icon: String,
