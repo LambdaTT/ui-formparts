@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-input hide-bottom-space square filled :clearable="clearable" v-model="fileData.name" @click="inputClicked()"
+    <q-input :readonly="readonly" hide-bottom-space square filled :clearable="clearable" v-model="fileData.name" @click="inputClicked()"
       type="text" :label="!!Label ? Label : 'Selecione o arquivo'" @clear="clearFile"
       :color="!!Color ? Color : 'primary'" @focus="$emit('focus')" :error="Error">
       <template v-slot:prepend>
@@ -13,15 +13,18 @@
     <p v-show="this.fileData.size != null" class="text-caption text-right">{{ (this.fileData.size / 1024).toFixed(2) }}
       kb
     </p>
-    <input id="input-file" :accept="accept" type="file" v-on:change="fileChange" style="display:none;">
+    <input :disabled="readonly" id="input-file" :accept="accept" type="file" v-on:change="fileChange" style="display:none;">
   </div>
 </template>
 <script>
+import { readonly } from 'vue';
+
 export default {
   name: 'ui-formparts-fileupload',
 
   props: {
     clearable: Boolean,
+    readonly: Boolean,
     accept: String,
     modelValue: Object,
     Icon: String,

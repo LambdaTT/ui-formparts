@@ -93,7 +93,7 @@
       :Label="Label" :clearable="clearable" :Error="Error" :Default=Default></InputColor>
 
     <!-- Input file: -->
-    <FileUpload v-if="type == 'file'" :clearable="clearable" :accept="accept" @update:model-value="updModelValue"
+    <FileUpload v-if="type == 'file'" :clearable="clearable" :readonly=readonly :accept="accept" @update:model-value="updModelValue"
       v-model="value" @fileupload-before-choose="broadcast('fileupload-before-choose')" :Icon="Icon" :Label="Label"
       @fileupload-chosen="broadcast('fileupload-chosen')" :Error="Error" @focus="() => $emit('focus')" :ReadAsURL="ReadAsURL">
     </FileUpload>
