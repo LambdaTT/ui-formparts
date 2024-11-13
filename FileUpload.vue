@@ -13,7 +13,7 @@
     <p v-show="this.fileData.size != null" class="text-caption text-right">{{ (this.fileData.size / 1024).toFixed(2) }}
       kb
     </p>
-    <input :disabled="readonly" id="input-file" :accept="accept" type="file" v-on:change="fileChange" style="display:none;">
+    <input :disabled="readonly" ref="inputFile" :accept="accept" type="file" v-on:change="fileChange" style="display:none;">
   </div>
 </template>
 <script>
@@ -49,6 +49,7 @@ export default {
     modelValue: {
       handler(v) {
         this.fileData = v;
+        console.log(this.fileData);
       },
       deep: true
     },
@@ -73,12 +74,12 @@ export default {
       await this.sleep(100);
       this.dialogIsOpen = true;
       window.addEventListener('focus', this.onWindowFocus);
-      document.getElementById('input-file').click();
+      this.$refs.inputFile.click();
       document.activeElement.blur();
     },
 
     clearFile() {
-      var input = document.getElementById('input-file');
+      var input = this.$refs.inputFile;
       input.value = null;
       this.clearFileData();
     },
