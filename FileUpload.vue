@@ -17,7 +17,6 @@
   </div>
 </template>
 <script>
-import { readonly } from 'vue';
 
 export default {
   name: 'ui-formparts-fileupload',
