@@ -16,7 +16,7 @@
     <input :disabled="readonly" ref="inputFile" :accept="accept" type="file" v-on:change="fileChange" style="display:none;">
   </div>
 </template>
-<script>
+<script> 
 
 export default {
   name: 'ui-formparts-fileupload',
