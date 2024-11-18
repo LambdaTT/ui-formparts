@@ -41,6 +41,12 @@ export default {
     }
   },
 
+  watch: {
+    modelValue(v) {
+      this.value = v;
+    }
+  },
+
   methods: {
     updateModelValue(v) {
       this.value = `${v}`;
@@ -53,8 +59,8 @@ export default {
     }
   },
 
-  created() {
-    this.default = this.Default;
+  mounted() {
+    this.default = this.Default ? this.Default : null;
     if (!this.modelValue)
       this.clear();
     else this.value = this.modelValue;

@@ -55,49 +55,53 @@
     </q-input>
 
     <!-- Input select: -->
-    <Select2 :BgColor="BgColor" v-if="type == 'select'" :dense="dense" :clearable="clearable" :readonly="readonly" :disable="disable"
-      :Options="Options" :Label="Label" :Icon="Icon" :Error="Error" @focus="() => $emit('focus')" v-model="value"
+    <Select2 :BgColor="BgColor" v-if="type == 'select'" :clearable="clearable" :dense="dense" :disable="disable" :readonly="readonly" v-model="value"
+      :Options="Options" :Label="Label" :Icon="Icon" :Error="Error" @focus="() => $emit('focus')"
       @update:model-value="updModelValue">
     </Select2>
 
     <!-- Input date: -->
-    <InputDate :BgColor="BgColor" v-if="type == 'date'" :dense="dense" :readonly="readonly" :disable="disable" v-model="value"
+    <InputDate :BgColor="BgColor" v-if="type == 'date'" :dense="dense" :disable="disable" :readonly="readonly" v-model="value"
       :Default="Default" :Label="Label" :Error="Error" @focus="() => $emit('focus')"
       @update:model-value="updModelValue">
     </InputDate>
 
     <!-- Input daterange: -->
-    <InputDate :BgColor="BgColor" v-if="type == 'daterange'" :dense="dense" :readonly="readonly" :disable="disable" range v-model="value"
+    <InputDate :BgColor="BgColor" v-if="type == 'daterange'" :dense="dense" :disable="disable" :readonly="readonly" v-model="value" range
       :Default="Default" :Label="Label" :Error="Error" @focus="() => $emit('focus')"
       @update:model-value="updModelValue">
     </InputDate>
 
     <!-- Input datetime: -->
-    <InputDate :BgColor="BgColor" v-if="type == 'datetime'" withTime :dense="dense" :readonly="readonly" :disable="disable" v-model="value"
+    <InputDate :BgColor="BgColor" v-if="type == 'datetime'" :dense="dense" :disable="disable" :readonly="readonly" v-model="value" withTime
       :Default="Default" :Label="Label" :Error="Error" @focus="() => $emit('focus')"
       @update:model-value="updModelValue">
     </InputDate>
 
     <!-- Input datetimerange: -->
-    <InputDate :BgColor="BgColor" v-if="type == 'datetimerange'" range withTime :dense="dense" :readonly="readonly" :disable="disable"
-      v-model="value" :Default="Default" :Label="Label" :Error="Error" @focus="() => $emit('focus')"
+    <InputDate :BgColor="BgColor" v-if="type == 'datetimerange'" :dense="dense" :disable="disable" :readonly="readonly" v-model="value" range withTime
+      :Default="Default" :Label="Label" :Error="Error" @focus="() => $emit('focus')"
       @update:model-value="updModelValue">
     </InputDate>
 
     <!-- Input time: -->
-    <InputTime :BgColor="BgColor" v-if="type == 'time'" :readonly="readonly" :disable="disable" :dense="dense" :Label="Label"
-      v-model="value" :Default="Default" @update:model-value="updModelValue"></InputTime>
+    <InputTime :BgColor="BgColor" v-if="type == 'time'" :dense="dense" :disable="disable" :readonly="readonly" v-model="value"
+      :Default="Default" :Label="Label" :Error="Error" @update:model-value="updModelValue" @focus="() => $emit('focus')">
+    </InputTime>
 
     <!-- Input color: -->
-    <InputColor :BgColor="BgColor" v-if="type == 'color'" :readonly="readonly" :disable="disable" :dense="dense" v-model="value"
-      :Label="Label" :clearable="clearable" :Error="Error" :Default=Default></InputColor>
+    <InputColor :BgColor="BgColor" v-if="type == 'color'" :clearable="clearable" :dense="dense" :disable="disable" :readonly="readonly" v-model="value"
+      :Default="Default" :Label="Label" :Error="Error" @focus="() => $emit('focus')">
+    </InputColor>
 
     <!-- Input file: -->
-    <FileUpload v-if="type == 'file'" :clearable="clearable" :readonly=readonly :accept="accept" @update:model-value="updModelValue"
-      v-model="value" @fileupload-before-choose="broadcast('fileupload-before-choose')" :Icon="Icon" :Label="Label"
-      @fileupload-chosen="broadcast('fileupload-chosen')" :Error="Error" @focus="() => $emit('focus')" :ReadAsURL="ReadAsURL">
+    <FileUpload v-if="type == 'file'" :accept="accept" :clearable="clearable" :readonly=readonly v-model="value"
+      :ReadAsURL="ReadAsURL" :Label="Label" :Icon="Icon" :Error="Error" 
+      @focus="() => $emit('focus')"
+      @update:model-value="updModelValue"
+      @fileupload-before-choose="broadcast('fileupload-before-choose')" 
+      @fileupload-chosen="broadcast('fileupload-chosen')"   >
     </FileUpload>
-
   </div>
 
 </template>
@@ -112,7 +116,7 @@ export default {
     readonly: Boolean,
     disable: Boolean,
     dense: Boolean,
-    modelValue: [String, Object],
+    modelValue: [String, Object, Number],
     Icon: String,
     Label: String,
     Mask: String,
@@ -123,7 +127,7 @@ export default {
     step: String,
     max: String,
     min: String,
-    Default: [String, Object],
+    Default: [String, Object, Number],
     accept: String,
     ReadAsURL: Boolean,
   },

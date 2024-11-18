@@ -29,7 +29,7 @@ export default {
     disable: Boolean,
     dense: Boolean,
     modelValue: {
-      types: ['string', 'object']
+      types: ['string', 'object', 'number']
     },
     clearable: Boolean
   },
@@ -55,11 +55,14 @@ export default {
 
   methods: {
     setValue() {
-      if (!!this.modelValue == false) this.selected = null;
+      if (this.modelValue === null || typeof this.modelValue == 'undefined' || this.modelValue === ''){ 
+        this.selected = null;
+      }
       else {
-        this.selected = this.Options.filter((v) =>
-          JSON.stringify(v.value).toLocaleLowerCase() == JSON.stringify(this.modelValue).toLocaleLowerCase()
-        )[0];
+        this.selected = this.Options.filter((v) => {
+          v.value = (typeof v.value == "number") ? String(v.value) : v.value; // Number to String
+          return JSON.stringify(v.value).toLocaleLowerCase() == JSON.stringify(this.modelValue).toLocaleLowerCase();
+        })[0];
       }
     },
 
@@ -77,11 +80,5 @@ export default {
       })
     },
   },
-
-  created() {
-    setTimeout(() => {
-      this.setValue();
-    }, 200);
-  }
 }
 </script>

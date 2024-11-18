@@ -49,7 +49,6 @@ export default {
     modelValue: {
       handler(v) {
         this.fileData = v;
-        console.log(this.fileData);
       },
       deep: true
     },
