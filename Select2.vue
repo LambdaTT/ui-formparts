@@ -1,7 +1,8 @@
 <template>
-  <q-select hide-bottom-space :bg-color="`bg-${BgColor ? BgColor : 'white'}`" option-disable="inactive" :disable="disable" :hide-dropdown-icon="readonly" :dense="dense" filled square
-    :clearable="clearable" v-model="selected" use-input hide-selected fill-input input-debounce="300" :options="options"
-    @filter="filterFn" :label="Label" :error="Error" @focus="$emit('focus')" :readonly="readonly">
+  <q-select hide-bottom-space :bg-color="`bg-${BgColor ? BgColor : 'white'}`" option-disable="inactive"
+    :disable="disable" :hide-dropdown-icon="readonly" :dense="dense" filled square :clearable="clearable"
+    v-model="selected" use-input hide-selected fill-input input-debounce="300" :options="options" @filter="filterFn"
+    :label="Label" :error="Error" @focus="$emit('focus')" :readonly="readonly">
     <template v-if="!!Icon" v-slot:append>
       <q-icon :name="Icon" color="grey-8" />
     </template>
@@ -48,14 +49,23 @@ export default {
       this.$emit('update:model-value', selectedValue);
     },
 
-    modelValue() {
+    modelValue(v) {
+      console.log('model value', v);
       this.setValue()
+    },
+
+    Options: {
+      handler(v) {
+        this.options = v;
+      },
+
+      deep: true
     }
   },
 
   methods: {
     setValue() {
-      if (this.modelValue === null || typeof this.modelValue == 'undefined' || this.modelValue === ''){ 
+      if (this.modelValue === null || typeof this.modelValue == 'undefined' || this.modelValue === '') {
         this.selected = null;
       }
       else {
@@ -80,5 +90,10 @@ export default {
       })
     },
   },
+
+  mounted() {
+    this.options = this.Options;
+    this.setValue()
+  }
 }
 </script>
