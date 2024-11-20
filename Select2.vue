@@ -50,7 +50,6 @@ export default {
     },
 
     modelValue(v) {
-      console.log('model value', v);
       this.setValue()
     },
 
