@@ -60,6 +60,20 @@ export default {
     }
   },
 
+  watch: {
+    date() {
+      this.updateModelValue();
+    },
+
+    firstTime() {
+      this.updateModelValue();
+    },
+
+    lastTime() {
+      this.updateModelValue();
+    },
+  },
+
   methods: {
     setDefault() {
       var v = this.Default ? this.Default : (this.modelValue ? this.modelValue : null);
@@ -116,7 +130,6 @@ export default {
       this.date = date;
       this.firstTime = firstTime;
       this.lastTime = lastTime;
-
     },
 
     updateModelValue() {
@@ -194,7 +207,7 @@ export default {
     },
   },
 
-  created() {
+  mounted() {
     setTimeout(() => {
       this.setDefault();
     }, 200);
