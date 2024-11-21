@@ -1,5 +1,6 @@
 <template>
-  <q-input hide-bottom-space :class="`full-width bg-${BgColor ? BgColor : 'white'}`" :dense="dense" readonly filled square v-model="formattedDate" :error="Error" :label="Label">
+  <q-input hide-bottom-space :class="`full-width bg-${BgColor ? BgColor : 'white'}`" :dense="dense" readonly filled
+    square v-model="formattedDate" :error="Error" :label="Label">
     <template v-slot:append>
       <q-icon id="clear-button" v-if="!!formattedDate && !readonly" name="cancel" clickable @click="clear()"
         class="cursor-pointer">
