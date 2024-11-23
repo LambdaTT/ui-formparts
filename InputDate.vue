@@ -174,6 +174,8 @@ export default {
     formattedDate() {
       if (!!this.modelValue) {
         if (typeof this.modelValue == 'object') {
+          if (!this.modelValue?.from || !this.modelValue?.to) return null;
+
           let fromData = this.modelValue.from.split('-');
           let toData = this.modelValue.to.split('-');
 
