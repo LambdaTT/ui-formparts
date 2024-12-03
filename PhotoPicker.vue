@@ -50,7 +50,6 @@ export default {
 
   methods: {
     updModelValue(v) {
-      console.log(v, this.input);
       this.$emit('update:model-value', v);
     },
   }
