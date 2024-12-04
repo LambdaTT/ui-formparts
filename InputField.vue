@@ -102,6 +102,13 @@
       @fileupload-before-choose="broadcast('fileupload-before-choose')" 
       @fileupload-chosen="broadcast('fileupload-chosen')"   >
     </FileUpload>
+
+    <!-- Input Editor -->
+    <InputEditor v-if="type == 'editor'" :disable="disable" :readonly=readonly v-model="value"
+      :Label="Label" :Error="Error"
+      @focus="() => $emit('focus')"
+      @update:model-value="updModelValue" >
+    </InputEditor>
   </div>
 
 </template>
