@@ -105,7 +105,7 @@
 
     <!-- Input Editor -->
     <InputEditor v-if="type == 'editor'" :disable="disable" :readonly=readonly v-model="value"
-      :Label="Label" :Error="Error"
+      :Label="Label" :Error="Error" :placeholder="placeholder"
       @focus="() => $emit('focus')"
       @update:model-value="updModelValue" >
     </InputEditor>
@@ -137,6 +137,7 @@ export default {
     Default: [String, Object, Number],
     accept: String,
     ReadAsURL: Boolean,
+    placeholder: String,
   },
 
   data() {
