@@ -1,6 +1,6 @@
 <template>
   <div id="wrapper" class="text-center q-pa-sm">
-    <div id="photo-container">
+    <div :class="`photo-container ${square?'square':''}`">
       <q-img :src="input.src ? input.src : DefaultImgPath" />
     </div>
     <FileUpload @activateFn="(fn) => activateFileInput = fn" class="hidden" v-model="input" :ReadAsURL="true"
@@ -22,7 +22,8 @@ export default {
   props: {
     DefaultImgPath: String,
     modelValue: Object,
-    disable: Boolean
+    disable: Boolean,
+    square: Boolean,
   },
 
   data() {
@@ -63,13 +64,13 @@ export default {
   width: 40%;
 }
 
-#photo-container {
+.photo-container {
   width: 100%;
   border-radius: 50%;
   overflow: hidden;
 }
 
-#photo-container>img {
+.photo-container>img {
   width: 100%;
 }
 
@@ -77,5 +78,9 @@ export default {
   position: absolute;
   right: 0px;
   bottom: 0px;
+}
+
+.square {
+  border-radius: 0%;
 }
 </style>
