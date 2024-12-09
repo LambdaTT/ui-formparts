@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-input hide-bottom-space :class="`full-width bg-${BgColor ? BgColor : 'white'}`" square filled :dense="dense" readonly v-model="value" :error="Error"
-      @focus="() => $emit('focus')" :label="Label" @update:model-value="updModelValue">
+      @focus="() => $emit('focus')" :label="Label">
       <template v-slot:append>
         <span v-if="!!value" :style="`background-color:${value};`" id="color-preview"></span>
         <q-icon id="clear-button" v-if="!!value && !readonly" name="cancel" clickable @click="clear()"
@@ -44,6 +44,10 @@ export default {
   watch: {
     modelValue(v) {
       this.value = v;
+    },
+
+    value(v){
+      this.updModelValue(v);
     }
   },
 

@@ -91,7 +91,7 @@
 
     <!-- Input color: -->
     <InputColor :BgColor="BgColor" v-if="type == 'color'" :clearable="clearable" :dense="dense" :disable="disable" :readonly="readonly" v-model="value"
-      :Default="Default" :Label="Label" :Error="Error" @focus="() => $emit('focus')">
+      :Default="Default" :Label="Label" :Error="Error" @focus="() => $emit('focus')" @update:model-value="updModelValue">
     </InputColor>
 
     <!-- Input file: -->
