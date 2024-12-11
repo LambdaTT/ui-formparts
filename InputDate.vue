@@ -76,7 +76,8 @@ export default {
 
   methods: {
     setDefault() {
-      var v = this.Default ? this.Default : (this.modelValue ? this.modelValue : null);
+      // var v = this.Default ? this.Default : (this.modelValue ? this.modelValue : null);
+      var v = this.Default ? this.Default : null;
       var date;
       var firstTime;
       var lastTime;
