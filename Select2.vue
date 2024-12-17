@@ -64,14 +64,18 @@ export default {
 
   methods: {
     setValue() {
-      if (this.modelValue === null || typeof this.modelValue == 'undefined' || this.modelValue === '') {
-        this.selected = null;
-      }
-      else {
-        this.selected = this.Options.filter((v) => {
-          v.value = (typeof v.value == "number") ? String(v.value) : v.value; // Number to String
-          return JSON.stringify(v.value).toLocaleLowerCase() == JSON.stringify(this.modelValue).toLocaleLowerCase();
-        })[0];
+      if (this.Options?.length) {
+        if (this.modelValue === null || typeof this.modelValue == 'undefined' || this.modelValue === '') {
+          this.selected = null;
+        }
+        else {
+          this.selected = this.Options.filter((v) => {
+            v.value = (typeof v.value == "number") ? String(v.value) : v.value; // Number to String
+            return JSON.stringify(v.value).toLocaleLowerCase() == JSON.stringify(this.modelValue).toLocaleLowerCase();
+          })[0];
+        }
+      } else {
+        setTimeout(this.setValue, 100);
       }
     },
 
